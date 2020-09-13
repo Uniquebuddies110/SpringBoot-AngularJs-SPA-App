@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="AppModule">
+<head>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+	<script type="text/javascript">
+
+		var users=[];
+
+		var app=angular.module("AppModule",["ngRoute"]);
+		app.config(function($routeProvider) {
+
+			console.log("From template....");
+			$routeProvider.when("/",{
+				templateUrl: "/home"
+			});
+			
+			$routeProvider.when("/userReg",{
+				templateUrl: "/userReg"
+			});
+
+			$routeProvider.when("/displayUsers",{
+				templateUrl: "/displayUsers"
+			});
+
+			$routeProvider.when("/deleteUser",{
+				templateUrl: "/deleteUser"
+			});
+		})
+
+		app.controller("userRegCtrl",f1);
+		function f1($scope,$http){
+			$scope.user={}
+
+			$scope.register=function(){
+				users.push($scope.user);
+				console.log(users);
+				$http.post("/register",$scope.user).then(function(response){
+					alert(response.data);
+					console.log(response.status);
+				},function(response){
+					console.log(response.status);
+					alert(response.data || 'Request failed');
+				})
+			}
+		}
+
+		app.controller("displayUsersCtrl",f2);
+		function f2($scope){
+			$scope.currentUsers=users;
+		}
+
+	</script>
+</head>
+<body>
+<h1>Welcome to Index Page</h1>
+<hr>
+<!-- <a href="#/!">Home</a> -->
+| <a href="#!userReg">Register</a>
+| <a href="#!displayUsers">Display Users</a>
+| <a href="#!deleteUser">Delete User</a>
+<hr>
+<div ng-view></div>
+<hr>
+@User Model
+</body>
+</html>

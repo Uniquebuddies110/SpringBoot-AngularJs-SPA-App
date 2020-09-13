@@ -1,0 +1,18 @@
+<h3>Welcome to display Users Page</h3>
+
+<div ng-controller="displayUsersCtrl">
+	<table border="1">
+		<tr>
+			<th>UserName</th>
+			<th>Email</th>
+			<th>PhoneNo</th>
+		</tr>
+
+		<tr ng-repeat="u in users">
+			<td>{{u.username}}</td>
+			<td>{{u.email}}</td>
+			<td>{{u.phoneNo}}</td>
+		</tr>
+	</table>
+
+</div>
